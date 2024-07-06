@@ -2,6 +2,8 @@ import React, { Suspense, useEffect } from "react";
 import { HashRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import "./scss/style.scss";
 import "./index.css";
+import Login from "./views/pages/login/Login";
+import AddCustomers from "./views/Add/AddCustomers";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -13,7 +15,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
-const Login = React.lazy(() => import("./views/pages/login/Login"));
+// const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 
 const PrivateRoute = ({ element: Component, ...rest }) => {
@@ -33,14 +35,17 @@ const App = () => {
     <HashRouter>
       <Suspense fallback={loading}>
         <Routes>
-          <Route exact path="/" name="Login Page" element={<Login />} />
-          <Route exact path="/register" name="Register Page" element={<Register />} />
+          <Route exact path="/" name="Login Page" element={ <Login/> } /> 
+           <Route exact path="/register" name="Register Page" element={<Register />} />
+           {/* <Route exact path="/AddCustomer" name="Add Customer" element={<AddCustomers/>} /> */}
         
           {/* Protected Routes */}
           <Route
             path="*"
             name="Home"
-            element={<PrivateRoute element={DefaultLayout} />}
+            // element={<PrivateRoute element={DefaultLayout} />}
+            element = <DefaultLayout />
+
           />
         </Routes>
       </Suspense>
@@ -49,3 +54,5 @@ const App = () => {
 };
 
 export default App;
+
+

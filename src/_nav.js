@@ -1,50 +1,25 @@
 import React from "react";
-import CIcon from "@coreui/icons-react";
-import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-} from "@coreui/icons";
-import { CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
+import AddSharpIcon from '@mui/icons-material/AddSharp';
+import RemoveRedEyeSharpIcon from '@mui/icons-material/RemoveRedEyeSharp';
+import { CNavItem } from "@coreui/react";
+
+const iconStyle = {
+  color: '#009999'
+};
 
 const _nav = [
-  // {
-    // component: CNavGroup,
-
-    // component: CNavItem,
-    // name: "Dashboard",
-    // to: "/dashboard",
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    // badge: {
-    //   color: 'info',
-    //   text: 'NEW',
-    // },
-  // },
-  // {
-  //   component: CNavTitle,
-  //   name: 'Theme',
-  // },
   {
     component: CNavItem,
-    name: "Add Employees",
-    to: "/AddEmployees",
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    name: "Add Customers",
+    to: "/AddCustomer",
+    icon: <AddSharpIcon className="nav-icon" style={iconStyle} />,
   },
   {
     component: CNavItem,
-    name: "Employee Status",
-    to: "/EmployeeStatus",
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    name: "View Customer",
+    to: "/ViewCustomer",
+    icon: <RemoveRedEyeSharpIcon className="nav-icon" style={iconStyle} />,
   },
-  
 ];
 
 export default _nav;

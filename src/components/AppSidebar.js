@@ -13,7 +13,8 @@ import { AppSidebarNav } from "./AppSidebarNav";
 
 import { logoNegative } from "src/assets/brand/logo-negative";
 import { sygnet } from "src/assets/brand/sygnet";
-import VRadicals from "../Images/VRadicals.png"
+import Webiators from "../Images/Webiators.png";
+
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
@@ -37,8 +38,10 @@ const AppSidebar = () => {
       <CSidebarBrand className="d-none d-md-flex justify-evenly px-3" to="/">
         {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
-        <img src={VRadicals} alt="" className="w-[50px] h-[50px]" />
-        <h1 className="text-[20px]"><b>VRadicals</b></h1>
+        {/* <img src={VRadicals} alt="" className="w-[50px] h-[50px]" /> */}
+        <img src={Webiators} alt="" className="w-[90%] h-[50px]" />
+
+        {/* <h1 className="text-[20px]"><b>Webiators</b></h1> */}
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

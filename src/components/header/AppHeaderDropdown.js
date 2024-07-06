@@ -22,8 +22,7 @@ import {
 } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { HashRouter, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-
-import avatar8 from "./../../assets/images/avatars/8.jpg";
+import Profile from "./../../Images/Profile.jpg";
 
 const AppHeaderDropdown = () => {
   const navigate = useNavigate();
@@ -37,13 +36,11 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+        <CAvatar src={Profile} size="lg" />
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-      
-        {/* <CDropdownDivider /> */}
-        <CDropdownItem href="#" onClick={handleLogout} className="">
-          <CIcon icon={cilLockLocked} className="me-2" />
+      <CDropdownMenu className="pt-0 px-0 bg-gray-200 "  >
+        <CDropdownItem onClick={handleLogout} className="text-black">
+          <CIcon icon={cilLockLocked} className="mx-[19px]" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>

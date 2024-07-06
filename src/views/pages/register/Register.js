@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -15,25 +15,26 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
-import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
   const navigate = useNavigate();
-
   const [name, setName] = useState("");
-  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const handleRegister = async () => {
     if (password !== repeatPassword) {
-      console.error("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     try {
       const response = await fetch(
-        "http://localhost:3001/api/auth/createUser",
+        "http://localhost:5000/api/auth/createUser",
         {
           method: "POST",
           headers: {
@@ -43,47 +44,47 @@ const Register = () => {
             name,
             email,
             password,
-            role,
           }),
         }
       );
 
       if (response.ok) {
-        console.log("Register successful");
-        const Response = await response.json(); // Parse response as JSON
-        console.log("Response data:", Response);
-        console.log("token==>", Response.authToken);
-        console.log("role==>", Response.role);
-        localStorage.setItem("auth-token", Response.authToken);
-        sessionStorage.setItem("auth-token", Response.authToken);
-        localStorage.setItem("role", Response.role);
-        sessionStorage.setItem("role", Response.role);
-       
-        navigate("/");
+        const responseData = await response.json();
+        console.log("Registration successful:", responseData);
+        localStorage.setItem("auth-token", responseData.authToken);
+        sessionStorage.setItem("auth-token", responseData.authToken);
+        toast.success("Registered Successfully");
+        navigate("/"); // Redirect to home or login page
       } else {
-        // Handle registration error
-        console.error("Registration failed");
+        const errorData = await response.json();
+        console.error("Registration failed:", errorData);
+        toast.error(errorData.error || errorData.errors[0].msg);
       }
     } catch (error) {
       console.error("Error registering:", error);
+      toast.error("Error registering");
     }
   };
+  const handleBackClick = () => {
+    navigate("/")
+  }
 
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center ">
+      <CContainer className="">
+      <button onClick={handleBackClick} className="ms-5 w-[fit-content] h-[fit-content]  py-0 px-3 rounded-md bg-gray-500 hover:bg-gray-400 hover:text-black"><FontAwesomeIcon className="text-white" icon={faArrowLeft} /></button>
         <CRow className="justify-content-center">
-          <CCol md={9} lg={7} xl={7}>
+          <CCol md={9} lg={7} xl={7} className="">
             <CCard className="mx-4">
-              <CCardBody className="p-4">
+              <CCardBody className="p-4 bg-slate-500 rounded-lg text-white">
                 <CForm>
-                  <h1>Register</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
+                  <h1 className="text-center text-xl"><b>Register</b></h1>
+                  <p className="text-white my-2">Create your account</p>
                   <CInputGroup className="mb-3">
-                    <div className="flex items-center w-[20%]">
+                    <div className="flex items-center sm:w-[20%] w-[90%]">
                       <CFormLabel>Name:</CFormLabel>
                     </div>
-                    <div className="flex w-[80%]">
+                    <div className="flex gap-2 sm:w-[80%] w-[100%]">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
@@ -96,10 +97,10 @@ const Register = () => {
                     </div>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <div className="w-[20%] flex items-center">
+                    <div className="flex items-center sm:w-[20%] w-[90%]">
                       <CFormLabel>Email:</CFormLabel>
                     </div>
-                    <div className="flex w-[80%]">
+                    <div className="flex gap-2 sm:w-[80%] w-[100%]">
                       <CInputGroupText>@</CInputGroupText>
                       <CFormInput
                         placeholder="Enter Email here"
@@ -110,27 +111,10 @@ const Register = () => {
                     </div>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <div className="flex w-[20%]">
-                      <CFormLabel>Role:</CFormLabel>
-                    </div>
-                    <div className="flex w-[80%]">
-                      <CInputGroupText>@</CInputGroupText>
-                      <Form.Select
-                        aria-label="Default select example"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                      >
-                        <option value="">Select Role</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Hr">Hr</option>
-                      </Form.Select>
-                    </div>
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <div className="flex w-[20%]">
+                    <div className="flex sm:w-[20%] w-[90%]">
                       <CFormLabel>Password:</CFormLabel>
                     </div>
-                    <div className="flex w-[80%]">
+                    <div className="flex gap-2 sm:w-[80%] w-[100%]">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
@@ -144,10 +128,10 @@ const Register = () => {
                     </div>
                   </CInputGroup>
                   <CInputGroup className="mb-4">
-                    <div className="w-[20%] flex">
+                    <div className="flex sm:w-[20%] w-[90%]">
                       <CFormLabel>Repeat Password:</CFormLabel>
                     </div>
-                    <div className="flex w-[80%]">
+                    <div className="flex gap-2 sm:w-[80%] w-[100%]">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
@@ -156,12 +140,15 @@ const Register = () => {
                         placeholder="Repeat password"
                         autoComplete="new-password"
                         value={repeatPassword}
+                        className="py-0"
                         onChange={(e) => setRepeatPassword(e.target.value)}
                       />
                     </div>
                   </CInputGroup>
-                  <div className="d-grid" onClick={handleRegister}>
-                    <CButton color="success">Create Account</CButton>
+                  <div className="flex justify-center">
+                    <CButton onClick={handleRegister} className="w-[fit-content] py-2 bg-gray-600 hover:bg-green-200 hover:text-black transition duration-300 border-none">
+                      Create Account
+                    </CButton>
                   </div>
                 </CForm>
               </CCardBody>

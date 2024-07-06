@@ -5,13 +5,8 @@ const AppFooter = () => {
   return (
     <CFooter>
       <div className="ms-auto">
-      
-        <a
-         
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        203, Balaji Corporate, New Palasia, Indore .
+        <a target="_blank" rel="noopener noreferrer">
+          Head Office | 302 Western Business Center Indore (M.P)
         </a>
       </div>
     </CFooter>
